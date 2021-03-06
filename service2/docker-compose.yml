@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  whoami:
+    image: containous/whoami
+    networks:
+      traefik_proxy:
+    labels:
+      - "traefik.http.middlewares.whoami-service2.stripprefix.prefixes=/whoami-service2"
+      - "traefik.http.routers.whoami-service2.middlewares=whoami-service2@docker"
+
+networks:
+  traefik_proxy:
+    external: true

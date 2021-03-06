@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  whoami:
+    image: containous/whoami
+    networks:
+      traefik_proxy:
+
+networks:
+  traefik_proxy:
+    external: true

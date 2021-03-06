@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  traefik:
+    image: traefik:v2.4
+    networks:
+      traefik_proxy:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.network=traefik-proxy"
+      - "--providers.docker.defaultRule=PathPrefix(`/{{ normalize .Name }}`)"
+    ports:
+      - "81:80"
+      - "8081:8080"
+
+networks:
+  traefik_proxy:
+    external: true
